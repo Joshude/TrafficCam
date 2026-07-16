@@ -1,0 +1,74 @@
+# Kopiere diese Datei nach config/config.yaml und passe sie an.
+
+stream:
+  # UniFi RTSP: in der UniFi Protect App / Konsole je Kamera aktivieren.
+  # Empfehlung: den niedrig aufgeloesten Sub-Stream nutzen (spart CPU).
+  url: "rtsp://CAMERA_IP:7447/STREAM_ID"
+  rtsp_transport: "tcp"
+  reconnect_delay: 3.0
+
+motion:
+  proc_width: 640      # Analysebreite in px - kleiner = schneller
+  min_area: 350
+  # Empfindlichkeit der Bewegungserkennung: hoeher = unempfindlicher gegen
+  # Rauschen/Flimmern (Standard 32; bei vielen Phantom-Blobs auf 40-50 erhoehen)
+  var_threshold: 32
+  # Schatten-Schwelle 0..1: Pixel, die den Hintergrund auf mindestens diesen
+  # Anteil abdunkeln, gelten als Schatten und werden ignoriert. 0.3 erfasst
+  # auch harte Sonnenschatten; falls dunkle Autos "Loecher" bekommen, auf
+  # 0.4-0.5 erhoehen.
+  shadow_threshold: 0.3        # Mindestgroesse eines Bewegungs-Blobs
+  merge_gap: 12        # nahe Blobs zusammenfassen (ein Auto = eine Box)
+  max_dist_frac: 0.18  # max. Bewegungs-Sprung pro Frame (Anteil Bildbreite)
+  max_missed: 10       # Frames ohne Sichtung -> Messung abschliessen
+  min_hits: 2
+
+# Filter (min/max km/h, Mindestlaenge) werden in der Web-UI gesetzt und in
+# settings.yaml neben der homography.yaml gespeichert.
+
+# Nachgelagerte Fahrzeug-Klassifizierung der Snapshots (optional).
+# Benoetigt: .venv/bin/pip install ultralytics  (Torch-CPU siehe README)
+detector:
+  classify_snapshots: false
+
+speed:
+  min_samples: 5
+  min_time: 0.20
+  min_disp: 1.5
+  max_kmh: 200
+  track_max_age: 15
+
+# Optionales Mess-Polygon (Pixel). null = ganzes Bild.
+# Empfehlung: nur den klar einsehbaren Strassenbereich einschliessen.
+zone: null
+# Beispiel:
+# zone: [[120, 300], [1100, 300], [1180, 650], [60, 650]]
+
+# Die Ausloeselinie (trigger_line) wird NICHT hier gesetzt, sondern bequem im
+# Browser unter /calibrate (Modus "Messlinie") eingezeichnet und landet in der
+# calibration_file (homography.yaml). Nur Fahrzeuge, die sie ueberqueren, werden
+# gewertet -> parkende Autos fallen automatisch raus.
+
+storage:
+  db_path: "/data/events.db"
+  csv_path: "/data/events.csv"
+  save_snapshots: true
+  snapshot_dir: "/data/snapshots"
+
+web:
+  host: "0.0.0.0"
+  port: 8088
+  stream_quality: 70
+
+# MQTT fuer Home Assistant (Sensoren erscheinen per Auto-Discovery von selbst)
+mqtt:
+  enabled: false
+  host: "IP-DES-BROKERS"     # z.B. die IP deiner HA-Instanz mit Mosquitto-Addon
+  port: 1883
+  username: ""
+  password: ""
+  base_topic: "trafficcam"
+  discovery: true
+  discovery_prefix: "homeassistant"
+
+calibration_file: "/config/homography.yaml"

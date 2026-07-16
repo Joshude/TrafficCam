@@ -1,0 +1,19 @@
+services:
+  trafficcam:
+    build: .
+    container_name: trafficcam
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./config:/config
+      - ./data:/data
+      - ./models:/root/.config/Ultralytics   # Cache fuer geladene Modelle
+    # Fuer NVIDIA-GPU (sonst weglassen):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]

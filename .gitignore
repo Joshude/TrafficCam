@@ -1,0 +1,31 @@
+# Runtime config & calibration - contains YOUR camera URL, MQTT credentials,
+# calibration points. Never commit these; config.example.yaml is the template.
+config/config.yaml
+config/homography.yaml
+config/settings.yaml
+
+# Runtime data: database, CSV log, snapshots (may contain identifiable
+# people / number plates - see Privacy section in the docs)
+data/*.db
+data/*.csv
+data/snapshots/
+
+# Downloaded AI models (fetched automatically on first use)
+models/*.pt
+*.pt
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Backups created by update.sh
+*.bak-*
