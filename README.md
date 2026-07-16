@@ -89,6 +89,15 @@ have a data-backed conversation with your local traffic authority.
 - **Optional vehicle classification** (car/truck/bus/motorcycle/
   bicycle/pedestrian) for filtering the event history.
 
+<img width="1712" height="866" alt="Screenshot 2026-07-16 at 14 19 07" src="https://github.com/user-attachments/assets/5063af1e-f0c2-4460-8cd7-0eef99f0b131" />
+
+<img width="1699" height="772" alt="Screenshot 2026-07-16 at 14 20 38" src="https://github.com/user-attachments/assets/96c1527d-4131-452f-b820-6dbe48f91c66" />
+
+<img width="1483" height="569" alt="Screenshot 2026-07-16 at 14 21 09" src="https://github.com/user-attachments/assets/be4862e2-5286-4f09-a79a-6de6c49ded61" />
+
+<img width="1486" height="705" alt="Screenshot 2026-07-16 at 14 21 32" src="https://github.com/user-attachments/assets/7d91230e-a85a-4b5e-9fa8-9e43297b8a9c" />
+
+
 ## Quick start
 
 ```bash
